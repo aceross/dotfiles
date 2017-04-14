@@ -13,6 +13,9 @@ set runtimepath+=~/.vim/bundle/Vundle.vim
 
 " Plugins {{{
 " -----------------------------------------------------------------------------
+" This set up uses Vundle. To start, the Vundle repository needs to be
+" cloned into ~/.vim
+
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'             " Package management
@@ -24,18 +27,16 @@ Plugin 'tpope/vim-fugitive'               " Git management
 Plugin 'airblade/vim-gitgutter'           " Show git changes
 Plugin 'jiangmiao/auto-pairs'             " Auto-close delimiter pairs
 Plugin 'luochen1990/rainbow'              " Rainbow delimiters
-Plugin 'jordwalke/flatlandia'             " Flatland mod
-Plugin 'ayu-theme/ayu-vim'
+Plugin 'jordwalke/flatlandia'             " Flatland scheme for airline theme
 Plugin 'vim-syntastic/syntastic'          " Syntax checker
 Plugin 'Shougo/neocomplete'               " Autocompletion
 Plugin 'Shougo/neosnippet'                " Code snippets
 Plugin 'Shougo/neosnippet-snippets'       " Populate code snippets
 Plugin 'scrooloose/nerdtree'              " file tree explorer
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'bcicen/vim-vice'
-Plugin 'chriskempson/base16-vim'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'Rip-Rip/clang_complete'
+Plugin 'reedes/vim-pencil'
 
         " Language-specific packages
 Plugin 'lervag/vimtex'                    " Support for Tex documents
@@ -45,6 +46,7 @@ Plugin 'vim-pandoc/vim-rmarkdown'
 Plugin 'NLKNguyen/c-syntax.vim'
 Plugin 'hdima/python-syntax'
 Plugin 'nvie/vim-flake8'
+Plugin 'xuhdev/vim-latex-live-preview'
 
 call vundle#end()         " required
 
@@ -53,14 +55,19 @@ filetype plugin indent on " required
 
 " Core Vim {{{
 " ------------------------------------------------------------------------------
+" Modifications for the core functioning of vim.
 
-set history=500        " keep 500 lines of command line history
+" File backups, history {{{
+" keep 500 lines of command line history
+set history=500
 
 " no need for backups as most projects are saved in git
 set nobackup
 set nowb
+
 " unnecessary on modern systems
 set noswapfile
+"}}}2
 
 " more intuitive window positioning
 set splitbelow
@@ -99,6 +106,16 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" Git {{{
+
+nnoremap <Leader>gc :Gcommit<CR>
+nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gs :Gstatus<CR>
+
+"}}}2
+
 "}}}
 
 " UI {{{
@@ -119,21 +136,28 @@ syntax on
 
 let g:gitgutter_sign_column_always=1        " constant git gutter; no resizing
 
-" Colour scheme
+" Colour scheme {{{
+
 set termguicolors
 set t_Co=256
 set background=dark
 colorscheme PaperColor
 
-" airline settings
+"}}}2
+" Airline settings {{{
+
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_theme='flatlandia'
 let g:airline_powerline_fonts=1             " Populate the powerline symbols
+let g:Powerline_symbols = 'fancy'
+
+"}}}
+
 
 let g:rainbow_active=1                      " Use rainbow delimiters
 
- " }}}
+" }}}
 
 " Editing {{{
 " ------------------------------------------------------------------------------
@@ -151,14 +175,14 @@ let g:syntastic_auto_loc_list=1
 let g:syntastic_check_on_open=1
 let g:syntastic_check_on_wq=0
 
-" Use neocomplete.
+" Use neocomplete
 let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
+" Use smartcase
 let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
+" Set minimum syntax keyword length
 let g:neocomplete#sources#syntax#min_keyword_length = 2
 
-" Define dictionary.
+" Define dictionary
 let g:neocomplete#sources#dictionary#dictionaries = {
     \ 'default' : '',
     \ 'vimshell' : $HOME.'/.vimshell_hist',
@@ -223,11 +247,26 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 " Language settings {{{
 " -----------------------------------------------------------------------------
+" C/C++ {{{
+au BufNewFile,BufRead *.c
+    \ set tabstop=8
+    \ set shiftwidth=8
+    \ set expandtab
+    \ set smartindent
 
 " clang autocomplete for C/C++
 let g:clang_library_path='/usr/lib/x86_64-linux-gnu/libclang-4.0.so'
 
-" python
+" }}}2
+
+" LaTeX {{{
+
+" view for latex previewing
+let g:livepreview_previewer = 'evince'
+
+ " }}}2
+
+" Python {{{
 "let python_highlight_all=1
 au BufNewFile,BufRead *.py
     \ set tabstop=4
@@ -237,6 +276,7 @@ au BufNewFile,BufRead *.py
     \ set expandtab
     \ set autoindent
     \ set fileformat=unix
+" }}}2
 
 " }}}
 

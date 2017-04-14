@@ -238,8 +238,6 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
-let g:clang_library_path='/usr/lib/x86_64-linux-gnu/libclang-3.8.so'
-
 " remove trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e
 
@@ -255,7 +253,7 @@ au BufNewFile,BufRead *.c
     \ set smartindent
 
 " clang autocomplete for C/C++
-let g:clang_library_path='/usr/lib/x86_64-linux-gnu/libclang-4.0.so'
+let g:clang_library_path='/usr/lib/x86_64-linux-gnu/libclang-3.8.so'
 
 " }}}2
 

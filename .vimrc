@@ -246,11 +246,14 @@ autocmd BufWritePre * :%s/\s\+$//e
 " Language settings {{{
 " -----------------------------------------------------------------------------
 " C/C++ {{{
-au BufNewFile,BufRead *.c
-    \ set tabstop=8
-    \ set shiftwidth=8
-    \ set expandtab
-    \ set smartindent
+au BufRead,BufNewFile *.c,*.h set expandtab
+au BufRead,BufNewFile *.c,*.h set tabstop=8
+au BufRead,BufNewFile *.c,*.h set shiftwidth=8
+au BufRead,BufNewFile *.c,*.h set autoindent
+au BufRead,BufNewFile *.c,*.h match BadWhitespace /^\t\+/
+au BufRead,BufNewFile *.c,*.h match BadWhitespace /\s\+$/
+au         BufNewFile *.c,*.h set fileformat=unix
+au BufRead,BufNewFile *.c,*.h let b:comment_leader = '/* '
 
 " clang autocomplete for C/C++
 let g:clang_library_path='/usr/lib/x86_64-linux-gnu/libclang-3.8.so'

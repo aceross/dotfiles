@@ -56,6 +56,7 @@ filetype plugin indent on " required
 " Core Vim {{{
 " ------------------------------------------------------------------------------
 " Modifications for the core functioning of vim.
+
 " File backups, history {{{
 " keep 500 lines of command line history
 set history=500
@@ -99,8 +100,6 @@ map <leader>s :source ~/.vimrc<CR>
 
 " space opens and closes folds
 nnoremap <space> za
-" silver searcher
-nnoremap <leader>a :Ag
 " navigating between split buffers
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -108,6 +107,8 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " Git {{{
+" This uses tpope's git-fugitive. Not as great as magit in Emacs,
+" but good enough.
 
 nnoremap <Leader>gc :Gcommit<CR>
 nnoremap <Leader>gd :Gdiff<CR>
@@ -119,21 +120,24 @@ nnoremap <Leader>gs :Gstatus<CR>
 "}}}
 " UI {{{
 " ------------------------------------------------------------------------------
+" Settings about the interface and aesthetics of vim.
 
-set ruler                                   " show cursor position
-set title                                   " display file name in title bar
-set textwidth=80                            " set the wrap guide
-set colorcolumn=+1                          " show the wrap guide
-set cursorline                              " highlight the current line
-set laststatus=2                            " set up status line
-set showmatch                               " highlight matching delimiter
-set showcmd                                 " display incomplete commands
+set ruler                             " show cursor position
+set title                             " display file name in title bar
+set textwidth=80                      " set the wrap guide
+set colorcolumn=+1                    " show the wrap guide
+set cursorline                        " highlight the current line
+set laststatus=2                      " set up status line
+set showmatch                         " highlight matching delimiter
+set showcmd                           " display incomplete commands
+set novisualbell                      " no blinking cursor
+set cmdheight=2                       " set command window height to 2 lines
 set noshowmode
-set novisualbell                            " no blinking cursor
+
 syntax enable
 syntax on
 
-let g:gitgutter_sign_column_always=1        " constant git gutter; no resizing
+let g:gitgutter_sign_column_always=1  " constant git gutter; no resizing
 
 " Toggle line numbers {{{ ------------------------------------------------------
 " Toggle through different line number displays.
@@ -175,19 +179,19 @@ let g:Powerline_symbols = 'fancy'
 let g:airline#extensions#branch#enabled = 1
 "}}}
 
-let g:rainbow_active=1                      " Use rainbow delimiters
+let g:rainbow_active=1  " Use rainbow delimiters
 
 " }}}
 " Editing {{{
 " ------------------------------------------------------------------------------
-set ignorecase    " ignore letter case when searching
-set smartcase     " if capitals, become case sensitive
-set autoindent    " on new lines, match indent of previous line
-set copyindent    " keep the indent level when copying
-set softtabstop=4
-set expandtab
-set shiftwidth=4
-set cindent       " smart indenting for c-like code
+set ignorecase     " ignore letter case when searching
+set smartcase      " if capitals, become case sensitive
+set autoindent     " on new lines, match indent of previous line
+set copyindent     " keep the indent level when copying
+set softtabstop=4  " how many columns tab uses in insert mode
+set expandtab      " tab in insert mode produces the set number of spaces
+set shiftwidth=4   " how many columns are indented with reindent operators
+set cindent        " smart indenting for c-like code
 
 " Creat dir if it does not exist {{{
 
@@ -207,76 +211,14 @@ let g:syntastic_check_on_wq=0
 
 " }}}2
 
-
-" Use neocomplete
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length
-let g:neocomplete#sources#syntax#min_keyword_length = 2
-
-" Define dictionary
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
 " remove trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e
 
 "}}}
 " Language settings {{{
 " -----------------------------------------------------------------------------
+"  Settings for specific languages.
+
 " C/C++ {{{
 au BufRead,BufNewFile *.c,*.h set expandtab
 au BufRead,BufNewFile *.c,*.h set tabstop=8
@@ -294,7 +236,7 @@ let g:clang_library_path='/usr/lib/x86_64-linux-gnu/libclang-3.8.so'
 " view for latex previewing
 let g:livepreview_previewer = 'evince'
 
- " }}}2
+ " } }}2
 " Python {{{
 "let python_highlight_all=1
 au BufNewFile,BufRead *.py
@@ -306,6 +248,10 @@ au BufNewFile,BufRead *.py
     \ set autoindent
     \ set fileformat=unix
 " }}}2
+" R {{{
+
+" }}}2
+
 
 " }}}
 

@@ -39,7 +39,7 @@ Plugin 'reedes/vim-pencil'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 
-        " Language-specific packages
+ " Language-specific packages
 Plugin 'lervag/vimtex'                    " Support for Tex documents
 Plugin 'jalvesaq/Nvim-R'                  " R programming support
 Plugin 'vim-pandoc/vim-pandoc-syntax'
@@ -52,7 +52,7 @@ Plugin 'xuhdev/vim-latex-live-preview'
 call vundle#end()         " required
 
 filetype plugin indent on " required
- " }}}
+" }}}
 " Core Vim {{{
 " ------------------------------------------------------------------------------
 " Modifications for the core functioning of vim.
@@ -82,10 +82,10 @@ set splitright
 set incsearch          " increamental searching
 set hlsearch           " highlight candidates in a search
 
- " graphical menu of all matches of autocomplete
- " first tab  - completes as much as possible
- " second tab - provide a list
- " third tab  - cycle through completion options
+" graphical menu of all matches of autocomplete
+" first tab  - completes as much as possible
+" second tab - provide a list
+" third tab  - cycle through completion options
 set wildmode=longest,list,full
 
 set foldenable         " enable folding
@@ -100,6 +100,12 @@ map <leader>s :source ~/.vimrc<CR>
 
 " space opens and closes folds
 nnoremap <space> za
+
+" NERDTree and buffer shorcuts
+nmap <leader>p :bp<CR>
+nmap <leader>n :bn<CR>
+nmap <C-X> :NERDTreeToggle<CR>
+
 " navigating between split buffers
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -131,7 +137,6 @@ set laststatus=2                      " set up status line
 set showmatch                         " highlight matching delimiter
 set showcmd                           " display incomplete commands
 set novisualbell                      " no blinking cursor
-set cmdheight=2                       " set command window height to 2 lines
 set noshowmode
 
 syntax enable

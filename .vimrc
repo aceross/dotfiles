@@ -42,6 +42,7 @@ Plugin 'plasticboy/vim-markdown'
  " Language-specific packages
 Plugin 'lervag/vimtex'                    " Support for Tex documents
 Plugin 'jalvesaq/Nvim-R'                  " R programming support
+Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
 Plugin 'vim-pandoc/vim-rmarkdown'
 Plugin 'NLKNguyen/c-syntax.vim'
@@ -123,9 +124,8 @@ nnoremap <Leader>gb :Gblame<CR>
 nnoremap <Leader>gs :Gstatus<CR>
 
 "}}}2
-
 "}}}
-" UI {{{
+" User Interface {{{
 " ------------------------------------------------------------------------------
 " Settings about the interface and aesthetics of vim.
 
@@ -185,7 +185,7 @@ let g:Powerline_symbols = 'fancy'
 let g:airline#extensions#branch#enabled = 1
 "}}}
 
-let g:rainbow_active=1  " Use rainbow delimiters
+let g:rainbow_active=1  " use rainbow delimiters
 
 " }}}
 " Editing {{{
@@ -330,6 +330,8 @@ let g:clang_library_path='/usr/lib/llvm-3.8/lib/'
 " }}}2
 " LaTeX {{{
 
+let g:tex_flavor = "latex"
+
 " view for latex previewing
 let g:livepreview_previewer = 'evince'
 
@@ -354,8 +356,28 @@ au BufNewFile,BufRead *.py
 
 " tmux support is necessary
 let R_tmux_split = 1
+
 " vertical tmux split
 let vimrplugin_vsplit = 1
+
+" for knitr
+let vimplugin_pdfviewer = "evince"
+let R_pdfviewer = "evince"
+
+" open the PDF upon compilation
+let R_openpdf = 1
+
+let vimrplugin_latexmk = 1
+autocmd BufRead,BufNewFile *.Rnw set ft=rnoweb
+autocmd BufRead,BufNewFile *.rnw set ft=rnoweb
+
+" highlight chunk header as R
+let rrst_syn_hl_chunk = 1
+let rmd_syn_hl_chunk = 1
+
+" the pandoc syntax concealment is confusing
+let pandoc#syntax#conceal#use = 0
+
 " }}}2
 " }}}
 

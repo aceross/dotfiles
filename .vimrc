@@ -33,7 +33,6 @@ Plugin 'Shougo/neosnippet'                " Code snippets
 Plugin 'Shougo/neosnippet-snippets'       " Populate code snippets
 Plugin 'scrooloose/nerdtree'              " file tree explorer
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'Rip-Rip/clang_complete'
 Plugin 'reedes/vim-pencil'
 Plugin 'godlygeek/tabular'
@@ -49,6 +48,11 @@ Plugin 'NLKNguyen/c-syntax.vim'
 Plugin 'hdima/python-syntax'
 Plugin 'nvie/vim-flake8'
 Plugin 'xuhdev/vim-latex-live-preview'
+
+ " colour schemes
+Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'morhetz/gruvbox'
+Plugin 'dracula/vim'
 
 call vundle#end()         " required
 
@@ -102,17 +106,29 @@ map <leader>s :source ~/.vimrc<CR>
 " space opens and closes folds
 nnoremap <space> za
 
-" NERDTree and buffer shorcuts
-nmap <leader>p :bp<CR>
-nmap <leader>n :bn<CR>
-nmap <C-X> :NERDTreeToggle<CR>
+" CtrlP {{{
+" ------------------------------------------------------------------------------
+map <leader>p :CtrlP()<CR>
+noremap <leader>b<space> :CtrlPBuffer<CR>
+let g:ctrlp_custom_ignore = '\v[\/]dist$'
 
+" }}}2
+" NERDTree and buffer shorcuts {{{
+" ------------------------------------------------------------------------------
+" next buffer
+nmap <leader>p :bp<CR>
+" previous buffer
+nmap <leader>n :bn<CR>
+" close buffer
+nmap <leader>q :bd<CR>
+" show/hide NERDTree
+nmap <C-n> :NERDTreeToggle<CR>
 " navigating between split buffers
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
+" }}}2
 " Git {{{
 " ------------------------------------------------------------------------------
 " This uses tpope's git-fugitive. Not as great as magit in Emacs,
@@ -173,6 +189,20 @@ set termguicolors
 set t_Co=256
 set background=dark
 colorscheme PaperColor
+
+let g:PaperColor_Theme_Options = {
+            \ 'language': {
+            \ 'r': {
+            \   'highlight_builtins': 1
+            \},
+            \ 'cpp': {
+            \   'highlight_standard_library': 1
+            \},
+            \ 'c': {
+            \   'highlight_builtins': 1
+            \}
+            \}
+            \}
 
 "}}}2
 " Airline settings {{{
@@ -354,10 +384,8 @@ au BufNewFile,BufRead *.py
 " session will open the REPL in a vertical split pane. Otherwise, the R session
 " will open in a separate terminal.
 
-" tmux support is necessary
+" start the R REPL in a vertical split
 let R_tmux_split = 1
-
-" vertical tmux split
 let vimrplugin_vsplit = 1
 
 " for knitr

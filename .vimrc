@@ -26,7 +26,6 @@ Plugin 'tpope/vim-fugitive'               " Git management
 Plugin 'airblade/vim-gitgutter'           " Show git changes
 Plugin 'jiangmiao/auto-pairs'             " Auto-close delimiter pairs
 Plugin 'luochen1990/rainbow'              " Rainbow delimiters
-Plugin 'jordwalke/flatlandia'             " Flatland scheme for airline theme
 Plugin 'vim-syntastic/syntastic'          " Syntax checker
 Plugin 'Shougo/neocomplete'               " Autocompletion
 Plugin 'Shougo/neosnippet'                " Code snippets
@@ -38,7 +37,7 @@ Plugin 'reedes/vim-pencil'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 
- " Language-specific packages
+ " language-specific packages
 Plugin 'lervag/vimtex'                    " Support for Tex documents
 Plugin 'jalvesaq/Nvim-R'                  " R programming support
 Plugin 'vim-pandoc/vim-pandoc'
@@ -53,6 +52,7 @@ Plugin 'xuhdev/vim-latex-live-preview'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'morhetz/gruvbox'
 Plugin 'dracula/vim'
+Plugin 'nanotech/jellybeans.vim'
 
 call vundle#end()         " required
 
@@ -108,6 +108,8 @@ nnoremap <space> za
 
 " CtrlP {{{
 " ------------------------------------------------------------------------------
+"  Fuzzy searching in a project folder.
+
 map <leader>p :CtrlP()<CR>
 noremap <leader>b<space> :CtrlPBuffer<CR>
 let g:ctrlp_custom_ignore = '\v[\/]dist$'
@@ -115,19 +117,22 @@ let g:ctrlp_custom_ignore = '\v[\/]dist$'
 " }}}2
 " NERDTree and buffer shorcuts {{{
 " ------------------------------------------------------------------------------
+"  Management of buffers and file tree.
+
+" show/hide NERDTree
+nmap <C-n> :NERDTreeToggle<CR>
+
+" navigating between split buffers
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 " next buffer
 nmap <leader>p :bp<CR>
 " previous buffer
 nmap <leader>n :bn<CR>
 " close buffer
 nmap <leader>q :bd<CR>
-" show/hide NERDTree
-nmap <C-n> :NERDTreeToggle<CR>
-" navigating between split buffers
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
 " }}}2
 " Git {{{
 " ------------------------------------------------------------------------------
@@ -209,7 +214,7 @@ let g:PaperColor_Theme_Options = {
 
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline_theme='flatlandia'
+let g:airline_theme='papercolor'
 let g:airline_powerline_fonts=1             " Populate the powerline symbols
 let g:Powerline_symbols = 'fancy'
 let g:airline#extensions#branch#enabled = 1

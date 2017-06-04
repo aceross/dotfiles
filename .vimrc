@@ -31,13 +31,14 @@ Plugin 'Shougo/neocomplete'               " Autocompletion
 Plugin 'Shougo/neosnippet'                " Code snippets
 Plugin 'Shougo/neosnippet-snippets'       " Populate code snippets
 Plugin 'scrooloose/nerdtree'              " file tree explorer
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Rip-Rip/clang_complete'
 Plugin 'reedes/vim-pencil'
 Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
 
  " language-specific packages
+Plugin 'plasticboy/vim-markdown'
 Plugin 'lervag/vimtex'                    " Support for Tex documents
 Plugin 'jalvesaq/Nvim-R'                  " R programming support
 Plugin 'vim-pandoc/vim-pandoc'
@@ -234,6 +235,17 @@ set expandtab      " tab in insert mode produces the set number of spaces
 set shiftwidth=4   " how many columns are indented with reindent operators
 set cindent        " smart indenting for c-like code
 
+" Commenting {{{
+" ------------------------------------------------------------------------------
+" Useful settings for commenting programmes with NERD commenter
+" <https://github.com/scrooloose/nerdcommenter>
+
+" add a space after delimiter
+let g:NERDSpaceDelims = 1
+
+" enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+" }}}2
 " Creat dir if it does not exist {{{
 
 function! MakeDirIfNoExists(path)
@@ -263,12 +275,12 @@ let g:neocomplete#enable_smart_case = 1
 " set minimum syntax keyword length
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 
-" Define dictionary.
+" define dictionary
 let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
+\     'default' : '',
+\     'vimshell' : $HOME.'/.vimshell_hist',
+\     'scheme' : $HOME.'/.gosh_completions'
+\ }
 
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
@@ -299,12 +311,6 @@ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 " AutoComplPop like behavior.
 "let g:neocomplete#enable_auto_select = 1
 
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -316,9 +322,8 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
 "}}}2
 " Snippets {{{
@@ -410,6 +415,18 @@ let rmd_syn_hl_chunk = 1
 
 " the pandoc syntax concealment is confusing
 let pandoc#syntax#conceal#use = 0
+
+" }}}2
+" Python {{{
+" ------------------------------------------------------------------------------
+
+au BufNewFile,BufRead *.py set tabstop=4
+au BufNewFile,BufRead *.py set softtabstop=4
+au BufNewFile,BufRead *.py set shiftwidth=4
+au BufNewFile,BufRead *.py set expandtab
+au BufNewFile,BufRead *.py set autoindent
+au BufNewFile,BufRead *.py set fileformat=unix
+
 
 " }}}2
 " }}}

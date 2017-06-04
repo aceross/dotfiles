@@ -168,7 +168,6 @@ set noshowmode
 syntax enable
 syntax on
 
-let g:gitgutter_sign_column_always=1  " constant git gutter; no resizing
 
 " Toggle line numbers {{{ ------------------------------------------------------
 " Toggle through different line number displays.
@@ -223,11 +222,16 @@ let g:airline_powerline_fonts=1             " Populate the powerline symbols
 let g:Powerline_symbols = 'fancy'
 let g:airline#extensions#branch#enabled = 1
 "}}}
+" Misc {{{
+" ------------------------------------------------------------------------------
+" Other settings that don't quite fall into the other categories.
 
-let g:rainbow_active=1  " use rainbow delimiters
+let g:rainbow_active=1                " use rainbow delimiters
+let g:gitgutter_sign_column_always=1  " constant git gutter; no resizing
+"}}}2
 
 " }}}
-" Editing {{{
+ " Editing {{{
 " ------------------------------------------------------------------------------
 set ignorecase     " ignore letter case when searching
 set smartcase      " if capitals, become case sensitive
@@ -248,18 +252,17 @@ let g:NERDSpaceDelims = 1
 
 " enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
-" }}}2
+"  }}}2
 " Creat dir if it does not exist {{{
-
+" ------------------------------------------------------------------------------
 function! MakeDirIfNoExists(path)
     if !isdirectory(expand(a:path))
         call mkdir(expand(a:path), "p")
     endif
 endfunction
-
 " }}}2
 " Syntastic error checking {{{
-
+" ------------------------------------------------------------------------------
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_auto_loc_list=1
 let g:syntastic_check_on_open=1
@@ -330,6 +333,9 @@ let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\
 
 "}}}2
 " Snippets {{{
+" ------------------------------------------------------------------------------
+" Control how snippets operate within vim.
+
 " Plugin key-mappings.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -360,6 +366,8 @@ autocmd BufWritePre * :%s/\s\+$//e
 "  Settings for specific languages.
 
 " C/C++ {{{
+" ------------------------------------------------------------------------------
+
 au BufRead,BufNewFile *.c,*.h set expandtab
 au BufRead,BufNewFile *.c,*.h set tabstop=8
 au BufRead,BufNewFile *.c,*.h set shiftwidth=8
@@ -372,6 +380,7 @@ let g:clang_library_path='/usr/lib/llvm-3.8/lib/'
 
 " }}}2
 " LaTeX {{{
+" ------------------------------------------------------------------------------
 
 let g:tex_flavor = "latex"
 
@@ -379,18 +388,8 @@ let g:tex_flavor = "latex"
 let g:livepreview_previewer = 'evince'
 
  " } }}2
-" Python {{{
-"let python_highlight_all=1
-au BufNewFile,BufRead *.py
-    \ set tabstop=4
-    \ set softtabstop=4
-    \ set shiftwidth=4
-    \ set textwidth=79
-    \ set expandtab
-    \ set autoindent
-    \ set fileformat=unix
-" }}}2
 " R {{{
+" ------------------------------------------------------------------------------
 " make R interact within vim
 "
 " For this to work, open tmux, and then the R file within vim. Starting an R
@@ -430,7 +429,8 @@ au BufNewFile,BufRead *.py set expandtab
 au BufNewFile,BufRead *.py set autoindent
 au BufNewFile,BufRead *.py set fileformat=unix
 
-
+" further highlighting in Python programs
+let python_highlight_all=1
 " }}}2
 " }}}
 

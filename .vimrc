@@ -167,8 +167,6 @@ set noshowmode
 
 syntax enable
 syntax on
-
-
 " Toggle line numbers {{{ ------------------------------------------------------
 " Toggle through different line number displays.
 " This includes static display of numbers as well as relative number display.
@@ -229,7 +227,6 @@ let g:airline#extensions#branch#enabled = 1
 let g:rainbow_active=1                " use rainbow delimiters
 let g:gitgutter_sign_column_always=1  " constant git gutter; no resizing
 "}}}2
-
 " }}}
  " Editing {{{
 " ------------------------------------------------------------------------------
@@ -432,6 +429,13 @@ au BufNewFile,BufRead *.py set fileformat=unix
 " further highlighting in Python programs
 let python_highlight_all=1
 " }}}2
+" Markdown {{{
+" ------------------------------------------------------------------------------
+
+" set the spell check in markdown files
+au BufRead *.md setlocal spell spelllang=en_gb
+au BufRead *.markdown setlocal spell spelllang=en_gb
+"}}}2
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0

@@ -9,6 +9,7 @@ filetype off
 
 " set the runtime path to include Vundle and initialise
 set runtimepath+=~/.vim/bundle/Vundle.vim
+
 "}}}
 " Plugins {{{
 " -----------------------------------------------------------------------------
@@ -58,6 +59,7 @@ Plugin 'nanotech/jellybeans.vim'
 call vundle#end()         " required
 
 filetype plugin indent on " required
+
 " }}}
 " Core Vim {{{
 " ------------------------------------------------------------------------------
@@ -141,6 +143,7 @@ nmap <leader>p :bp<CR>
 nmap <leader>n :bn<CR>
 " close buffer
 nmap <leader>q :bd<CR>
+
 " }}}2
 " Git {{{
 " ------------------------------------------------------------------------------
@@ -195,6 +198,7 @@ function! ToggleRelativeAbsoluteNumber()
       set norelativenumber
   endif
 endfunction
+
 " }}}2
 " Colour scheme {{{ ------------------------------------------------------------
 
@@ -226,6 +230,7 @@ let g:airline_theme='papercolor'
 let g:airline_powerline_fonts=1             " Populate the powerline symbols
 let g:Powerline_symbols = 'fancy'
 let g:airline#extensions#branch#enabled = 1
+
 "}}}
 " Misc {{{
 " ------------------------------------------------------------------------------
@@ -233,6 +238,7 @@ let g:airline#extensions#branch#enabled = 1
 
 let g:rainbow_active=1                " use rainbow delimiters
 let g:gitgutter_sign_column_always=1  " constant git gutter; no resizing
+
 "}}}2
 " }}}
  " Editing {{{
@@ -259,17 +265,21 @@ let g:NERDSpaceDelims = 1
 
 " enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
+
 "  }}}2
 " Creat dir if it does not exist {{{
 " ------------------------------------------------------------------------------
+
 function! MakeDirIfNoExists(path)
     if !isdirectory(expand(a:path))
         call mkdir(expand(a:path), "p")
     endif
 endfunction
+
 " }}}2
 " Syntastic error checking {{{
 " ------------------------------------------------------------------------------
+
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_auto_loc_list=1
 let g:syntastic_check_on_open=1
@@ -438,6 +448,7 @@ au BufNewFile,BufRead *.py set fileformat=unix
 
 " further highlighting in Python programs
 let python_highlight_all=1
+
 " }}}2
 " Markdown {{{
 " ------------------------------------------------------------------------------
@@ -445,6 +456,7 @@ let python_highlight_all=1
 " set the spell check in markdown files
 au BufRead *.md setlocal spell spelllang=en_gb
 au BufRead *.markdown setlocal spell spelllang=en_gb
+
 "}}}2
 " }}}
 

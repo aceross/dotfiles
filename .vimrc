@@ -107,6 +107,13 @@ map <leader>s :source ~/.vimrc<CR>
 " space opens and closes folds
 nnoremap <space> za
 
+" Plugin management {{{
+" ------------------------------------------------------------------------------
+"
+nnoremap <Leader>pu :PluginUpdate<CR>
+nnoremap <Leader>pi :PluginInstall<CR>
+
+" }}}2
 " CtrlP {{{
 " ------------------------------------------------------------------------------
 "  Fuzzy searching in a project folder.
@@ -238,6 +245,9 @@ set softtabstop=4  " how many columns tab uses in insert mode
 set expandtab      " tab in insert mode produces the set number of spaces
 set shiftwidth=4   " how many columns are indented with reindent operators
 set cindent        " smart indenting for c-like code
+
+" format text to stay within the line wrap
+"set formatoptions+=a
 
 " Commenting {{{
 " ------------------------------------------------------------------------------

@@ -4,6 +4,7 @@
 
 " Initialisation {{{
 " ------------------------------------------------------------------------------
+
 set nocompatible
 filetype off
 
@@ -66,6 +67,8 @@ filetype plugin indent on " required
 " Modifications for the core functioning of vim.
 
 " File backups, history {{{
+" ------------------------------------------------------------------------------
+
 " keep 500 lines of command line history
 set history=500
 
@@ -75,10 +78,12 @@ set nowb
 
 " unnecessary on modern systems
 set noswapfile
+
 "}}}2
 " Window splitting {{{
-
+" ------------------------------------------------------------------------------
 " more intuitive window positioning
+
 set splitbelow
 set splitright
 
@@ -127,7 +132,7 @@ let g:ctrlp_custom_ignore = '\v[\/]dist$'
 " }}}2
 " NERDTree and buffer shorcuts {{{
 " ------------------------------------------------------------------------------
-"  Management of buffers and file tree.
+" Management of buffers and file tree.
 
 " show/hide NERDTree
 nmap <C-n> :NERDTreeToggle<CR>
@@ -177,6 +182,7 @@ set noshowmode
 
 syntax enable
 syntax on
+
 " Toggle line numbers {{{ ------------------------------------------------------
 " Toggle through different line number displays.
 " This includes static display of numbers as well as relative number display.
@@ -394,6 +400,7 @@ au BufRead,BufNewFile *.c,*.h let b:comment_leader = '/* '
 
 " clang autocomplete for C/C++
 let g:clang_library_path='/usr/lib/llvm-3.8/lib/'
+"let g:clang_library_path='/usr/lib64/libclang.so'
 
 " }}}2
 " LaTeX {{{

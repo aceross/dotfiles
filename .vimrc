@@ -180,6 +180,8 @@ set showcmd                           " display incomplete commands
 set novisualbell                      " no blinking cursor
 set noshowmode
 
+set showbreak=←
+
 syntax enable
 syntax on
 
@@ -243,7 +245,7 @@ let g:airline#extensions#branch#enabled = 1
 " Other settings that don't quite fall into the other categories.
 
 let g:rainbow_active=1                " use rainbow delimiters
-let g:gitgutter_sign_column_always=1  " constant git gutter; no resizing
+set signcolumn=yes                    " constant git gutter; no resizing
 
 "}}}2
 " }}}
@@ -388,6 +390,12 @@ autocmd BufWritePre * :%s/\s\+$//e
 " -----------------------------------------------------------------------------
 "  Settings for specific languages.
 
+" Common Lisp {{{
+" ------------------------------------------------------------------------------
+
+let g:slimv_swank_cmd = '! xterm -e sbcl --load /usr/share/common-lisp/source/slime/start-swank.lisp &'
+
+" }}}
 " C/C++ {{{
 " ------------------------------------------------------------------------------
 

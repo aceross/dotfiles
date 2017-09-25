@@ -11,7 +11,6 @@ filetype off
 " set the runtime path to include Vundle and initialise
 set runtimepath+=~/.vim/bundle/Vundle.vim
 
-"}}}
 " Plugins {{{
 " -----------------------------------------------------------------------------
 " This set up uses Vundle. To start, the Vundle repository needs to be
@@ -20,8 +19,6 @@ set runtimepath+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'             " Package management
-Plugin 'vim-airline/vim-airline'          " Status bar
-Plugin 'vim-airline/vim-airline-themes'   " Themes for vim-airline
 Plugin 'nelstrom/vim-visual-star-search'  " Start a * or # search from a
                                           " visual block
 Plugin 'tpope/vim-fugitive'               " Git management
@@ -36,8 +33,21 @@ Plugin 'scrooloose/nerdtree'              " file tree explorer
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Rip-Rip/clang_complete'
-Plugin 'reedes/vim-pencil'
 Plugin 'godlygeek/tabular'
+
+" UI packages
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+" colour schemes
+Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'morhetz/gruvbox'
+Plugin 'dracula/vim'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'jacoborus/tender.vim'
+Plugin 'chase/focuspoint-vim'
+Plugin 'JarrodCTaylor/spartan'
+
 
  " language-specific packages
 Plugin 'plasticboy/vim-markdown'
@@ -50,12 +60,6 @@ Plugin 'NLKNguyen/c-syntax.vim'
 Plugin 'hdima/python-syntax'
 Plugin 'nvie/vim-flake8'
 Plugin 'xuhdev/vim-latex-live-preview'
-
- " colour schemes
-Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'morhetz/gruvbox'
-Plugin 'dracula/vim'
-Plugin 'nanotech/jellybeans.vim'
 
 call vundle#end()         " required
 
@@ -213,33 +217,14 @@ endfunction
 set termguicolors
 set t_Co=256
 set background=dark
-colorscheme PaperColor
 
-let g:PaperColor_Theme_Options = {
-            \ 'language': {
-            \ 'r': {
-            \   'highlight_builtins': 1
-            \},
-            \ 'cpp': {
-            \   'highlight_standard_library': 1
-            \},
-            \ 'c': {
-            \   'highlight_builtins': 1
-            \}
-            \}
-            \}
+colorscheme jellybeans
 
-"}}}2
 " Airline settings {{{
+" ------------------------------------------------------------------------------
 
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline_theme='papercolor'
-let g:airline_powerline_fonts=1             " Populate the powerline symbols
-let g:Powerline_symbols = 'fancy'
-let g:airline#extensions#branch#enabled = 1
+" }}}
 
-"}}}
 " Misc {{{
 " ------------------------------------------------------------------------------
 " Other settings that don't quite fall into the other categories.
@@ -247,9 +232,7 @@ let g:airline#extensions#branch#enabled = 1
 let g:rainbow_active=1                " use rainbow delimiters
 set signcolumn=yes                    " constant git gutter; no resizing
 
-"}}}2
-" }}}
- " Editing {{{
+" Editing {{{
 " ------------------------------------------------------------------------------
 set ignorecase     " ignore letter case when searching
 set smartcase      " if capitals, become case sensitive
@@ -275,16 +258,6 @@ let g:NERDSpaceDelims = 1
 let g:NERDTrimTrailingWhitespace = 1
 
 "  }}}2
-" Creat dir if it does not exist {{{
-" ------------------------------------------------------------------------------
-
-function! MakeDirIfNoExists(path)
-    if !isdirectory(expand(a:path))
-        call mkdir(expand(a:path), "p")
-    endif
-endfunction
-
-" }}}2
 " Syntastic error checking {{{
 " ------------------------------------------------------------------------------
 
@@ -293,7 +266,6 @@ let g:syntastic_auto_loc_list=1
 let g:syntastic_check_on_open=1
 let g:syntastic_check_on_wq=0
 
-" }}}2
 " Auto-completion {{{
 " ------------------------------------------------------------------------------
 
@@ -340,7 +312,7 @@ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
 
 " AutoComplPop like behavior.
-"let g:neocomplete#enable_auto_select = 1
+let g:neocomplete#enable_auto_select = 1
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -381,21 +353,15 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
+
 " }}}2
 " remove trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e
-
 "}}}
 " Language settings {{{
-" -----------------------------------------------------------------------------
+" ------------------------------------------------------------------------------
 "  Settings for specific languages.
 
-" Common Lisp {{{
-" ------------------------------------------------------------------------------
-
-let g:slimv_swank_cmd = '! xterm -e sbcl --load /usr/share/common-lisp/source/slime/start-swank.lisp &'
-
-" }}}
 " C/C++ {{{
 " ------------------------------------------------------------------------------
 
@@ -407,10 +373,11 @@ au         BufNewFile *.c,*.h set fileformat=unix
 au BufRead,BufNewFile *.c,*.h let b:comment_leader = '/* '
 
 " clang autocomplete for C/C++
-let g:clang_library_path='/usr/lib/llvm-3.8/lib/'
+let g:clang_library_path='/usr/lib/llvm-4.0/lib/'
 "let g:clang_library_path='/usr/lib64/libclang.so'
 
 " }}}2
+
 " LaTeX {{{
 " ------------------------------------------------------------------------------
 
@@ -420,7 +387,8 @@ let g:tex_flavor = "latex"
 let g:livepreview_previewer = 'evince'
 
  " } }}2
-" R {{{
+"
+"R {{{
 " ------------------------------------------------------------------------------
 " make R interact within vim
 "

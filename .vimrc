@@ -48,7 +48,6 @@ Plugin 'jacoborus/tender.vim'
 Plugin 'chase/focuspoint-vim'
 Plugin 'JarrodCTaylor/spartan'
 
-
  " language-specific packages
 Plugin 'plasticboy/vim-markdown'
 Plugin 'lervag/vimtex'                    " Support for Tex documents

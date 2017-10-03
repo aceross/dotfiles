@@ -7,6 +7,7 @@
 
 set nocompatible
 filetype off
+let g:skip_defaults_vim = 1
 
 " set the runtime path to include Vundle and initialise
 set runtimepath+=~/.vim/bundle/Vundle.vim
@@ -94,6 +95,8 @@ set splitright
 "}}}
 " Navigation {{{
 " ------------------------------------------------------------------------------
+
+set backspace=2        " make backspace behave normally
 
 set incsearch          " increamental searching
 set hlsearch           " highlight candidates in a search
@@ -398,6 +401,8 @@ let g:livepreview_previewer = 'evince'
 " start the R REPL in a vertical split
 let R_tmux_split = 1
 let vimrplugin_vsplit = 1
+
+let R_start_libs = "base,stats,graphics,grDevices,utils,methods"
 
 " for knitr
 let vimplugin_pdfviewer = "evince"

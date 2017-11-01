@@ -33,8 +33,9 @@ Plugin 'Shougo/neosnippet-snippets'       " Populate code snippets
 Plugin 'scrooloose/nerdtree'              " file tree explorer
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'Rip-Rip/clang_complete'
+"Plugin 'Rip-Rip/clang_complete'
 Plugin 'godlygeek/tabular'
+Plugin 'Valloric/YouCompleteMe'
 
 " UI packages
 Plugin 'vim-airline/vim-airline'
@@ -60,6 +61,7 @@ Plugin 'NLKNguyen/c-syntax.vim'
 Plugin 'hdima/python-syntax'
 Plugin 'nvie/vim-flake8'
 Plugin 'xuhdev/vim-latex-live-preview'
+Plugin 'JuliaEditorSupport/julia-vim'
 
 call vundle#end()         " required
 
@@ -169,7 +171,6 @@ nnoremap <Leader>gr :Gread<CR>
 nnoremap <Leader>gw :Gwrite<CR>
 nnoremap <Leader>gp :Git push<CR>
 
-"}}}2
 "}}}
 " User Interface {{{
 " ------------------------------------------------------------------------------
@@ -178,7 +179,7 @@ nnoremap <Leader>gp :Git push<CR>
 set ruler                             " show cursor position
 set title                             " display file name in title bar
 set textwidth=80                      " set the wrap guide
-set colorcolumn=+1                    " show the wrap guide
+"set colorcolumn=+1                    " show the wrap guide
 set cursorline                        " highlight the current line
 set laststatus=2                      " set up status line
 set showmatch                         " highlight matching delimiter
@@ -220,12 +221,7 @@ set termguicolors
 set t_Co=256
 set background=dark
 
-colorscheme jellybeans
-
-" Airline settings {{{
-" ------------------------------------------------------------------------------
-
-" }}}
+colorscheme tender
 
 " Misc {{{
 " ------------------------------------------------------------------------------
@@ -270,6 +266,11 @@ let g:syntastic_check_on_wq=0
 
 " Auto-completion {{{
 " ------------------------------------------------------------------------------
+
+" YouCompleteMe settings
+let g:ycm_python_binary_path = '/usr/bin/python3'
+
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 
 " disable AutoComplPop
 let g:acp_enableAtStartup = 0
@@ -379,7 +380,6 @@ let g:clang_library_path='/usr/lib/llvm-4.0/lib/'
 "let g:clang_library_path='/usr/lib64/libclang.so'
 
 " }}}2
-
 " LaTeX {{{
 " ------------------------------------------------------------------------------
 
@@ -437,6 +437,10 @@ au BufNewFile,BufRead *.py set fileformat=unix
 let python_highlight_all=1
 
 " }}}2
+" Julia {{{
+" ------------------------------------------------------------------------------
+
+" }}}
 " Markdown {{{
 " ------------------------------------------------------------------------------
 

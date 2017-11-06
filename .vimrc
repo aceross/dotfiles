@@ -33,7 +33,6 @@ Plugin 'Shougo/neosnippet-snippets'       " Populate code snippets
 Plugin 'scrooloose/nerdtree'              " file tree explorer
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'ctrlpvim/ctrlp.vim'
-"Plugin 'Rip-Rip/clang_complete'
 Plugin 'godlygeek/tabular'
 Plugin 'Valloric/YouCompleteMe'
 
@@ -43,12 +42,9 @@ Plugin 'vim-airline/vim-airline-themes'
 
 " colour schemes
 Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'morhetz/gruvbox'
 Plugin 'dracula/vim'
-Plugin 'nanotech/jellybeans.vim'
 Plugin 'jacoborus/tender.vim'
-Plugin 'chase/focuspoint-vim'
-Plugin 'JarrodCTaylor/spartan'
+Plugin 'noah/vim256-color'
 
  " language-specific packages
 Plugin 'plasticboy/vim-markdown'

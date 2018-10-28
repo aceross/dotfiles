@@ -1,103 +1,87 @@
-".vimrc
-" 2017 (c) Aaron Ceross
-" ------------------------------------------------------------------------------
 
-" Initialisation {{{
-" ------------------------------------------------------------------------------
+set nocompatible              " required
+filetype off                  " required
+set hidden
+set showtabline=0
 
-set nocompatible
-filetype off
-let g:skip_defaults_vim = 1
+call plug#begin('~/.vim/plugged')
 
-" set the runtime path to include Vundle and initialise
-set runtimepath+=~/.vim/bundle/Vundle.vim
+"-------------------=== Code/Project navigation ===-------------
+Plug 'scrooloose/nerdtree'                " Project and file navigation
+Plug 'majutsushi/tagbar'                  " Class/module browser
+Plug 'vim-ctrlspace/vim-ctrlspace'        " Tabs/Buffers/Fuzzy/Workspaces/Bookmarks
+Plug 'mileszs/ack.vim'                    " Ag/Grep
+Plug 'vim-airline/vim-airline'             " Lean & mean status/tabline for vim
+Plug 'vim-airline/vim-airline-themes'     " Themes for airline
+Plug 'fisadev/FixedTaskList.vim'          " Pending tasks list
+Plug 'MattesGroeger/vim-bookmarks'        " Bookmarks
+Plug 'thaerkh/vim-indentguides'           " Visual representation of indents
+Plug 'neomake/neomake'                    " Asynchronous Linting and Make Framework
+Plug 'Shougo/deoplete.nvim'               " Asynchronous Completion
+Plug 'roxma/nvim-yarp'                    " Deoplete Dependency #1
+Plug 'roxma/vim-hug-neovim-rpc'           " Deoplete Dependency #2
+Plug 'airblade/vim-gitgutter'             " Show git changes in the fringe
 
-" Plugins {{{
-" -----------------------------------------------------------------------------
-" This set up uses Vundle. To start, the Vundle repository needs to be
-" cloned into ~/.vim
+"-------------------=== Other ===-------------------------------
+Plug 'tpope/vim-surround'                 " Parentheses, brackets, quotes, XML tags, and more
+Plug 'flazz/vim-colorschemes'             " Colorschemes
+Plug 'vimwiki/vimwiki'                    " Personal Wiki
+Plug 'tpope/vim-fugitive'                 " Git Operations
+Plug 'kien/rainbow_parentheses.vim'       " Rainbow Parentheses
+Plug 'chriskempson/base16-vim'            " Base 16 colors
+Plug 'ryanoasis/vim-devicons'             " Dev Icons
 
-call vundle#begin()
+"-------------------=== Snippets support ===--------------------
+Plug 'garbas/vim-snipmate'                " Snippets manager
+Plug 'MarcWeber/vim-addon-mw-utils'       " dependencies #1
+Plug 'tomtom/tlib_vim'                    " dependencies #2
+Plug 'honza/vim-snippets'                 " snippets repo
 
-Plugin 'VundleVim/Vundle.vim'             " Package management
-Plugin 'nelstrom/vim-visual-star-search'  " Start a * or # search from a
-                                          " visual block
-Plugin 'tpope/vim-fugitive'               " Git management
-Plugin 'airblade/vim-gitgutter'           " Show git changes
-Plugin 'jiangmiao/auto-pairs'             " Auto-close delimiter pairs
-Plugin 'luochen1990/rainbow'              " Rainbow delimiters
-Plugin 'vim-syntastic/syntastic'          " Syntax checker
-Plugin 'Shougo/neocomplete'               " Autocompletion
-Plugin 'Shougo/neosnippet'                " Code snippets
-Plugin 'Shougo/neosnippet-snippets'       " Populate code snippets
-Plugin 'scrooloose/nerdtree'              " file tree explorer
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'godlygeek/tabular'
-Plugin 'Valloric/YouCompleteMe'
+"-------------------=== Languages support ===-------------------
+Plug 'scrooloose/nerdcommenter'           " Easy code documentation
+Plug 'mitsuhiko/vim-sparkup'              " Sparkup(XML/jinja/htlm-django/etc.) support
+Plug 'w0rp/ale'
 
-" UI packages
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+"-------------------=== Python  ===-----------------------------
+Plug 'klen/python-mode'                   " Python mode (docs, refactor, lints...)
+Plug 'hynek/vim-python-pep8-indent'
+Plug 'mitsuhiko/vim-python-combined'
+Plug 'mitsuhiko/vim-jinja'
+Plug 'jmcantrell/vim-virtualenv'
 
-" colour schemes
-Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'dracula/vim'
-Plugin 'jacoborus/tender.vim'
-Plugin 'noah/vim256-color'
+call plug#end()         " required
 
- " language-specific packages
-Plugin 'plasticboy/vim-markdown'
-Plugin 'lervag/vimtex'                    " Support for Tex documents
-Plugin 'jalvesaq/Nvim-R'                  " R programming support
-Plugin 'vim-pandoc/vim-pandoc'
-Plugin 'vim-pandoc/vim-pandoc-syntax'
-Plugin 'vim-pandoc/vim-rmarkdown'
-Plugin 'NLKNguyen/c-syntax.vim'
-Plugin 'hdima/python-syntax'
-Plugin 'nvie/vim-flake8'
-Plugin 'xuhdev/vim-latex-live-preview'
-Plugin 'JuliaEditorSupport/julia-vim'
+filetype on
+filetype plugin on
+filetype plugin indent on
 
-call vundle#end()         " required
-
-filetype plugin indent on " required
-
-" }}}
-" Core Vim {{{
-" ------------------------------------------------------------------------------
-" Modifications for the core functioning of vim.
-
-" File backups, history {{{
-" ------------------------------------------------------------------------------
-
-" keep 500 lines of command line history
-set history=500
+"===============================================================================
+" General settings
+"===============================================================================
+if filereadable(expand("~/.vimrc_background"))
+  source ~/.vimrc_background
+endif
 
 " no need for backups as most projects are saved in git
 set nobackup
 set nowb
-
-" unnecessary on modern systems
 set noswapfile
 
-"}}}2
-" Window splitting {{{
-" ------------------------------------------------------------------------------
-" more intuitive window positioning
+" colorscheme and encodings
+set encoding=utf-8
+set termguicolors
+let base16colorspace=256
+set t_Co=256
+"set guifont=mononoki\ Nerd\ Font\ 18
+" set vim colorscheme
+colorscheme base16-chalk
+let g:airline_powerline_fonts = 0
+" enable syntax highlighting
+syntax enable
 
-set splitbelow
-set splitright
-
-"}}}2
-"}}}
-" Navigation {{{
-" ------------------------------------------------------------------------------
-
-set backspace=2        " make backspace behave normally
-
-set incsearch          " increamental searching
-set hlsearch           " highlight candidates in a search
+set pyxversion=0
+let g:loaded_python_provider = 1
+set shell=/bin/bash
 
 " graphical menu of all matches of autocomplete
 " first tab  - completes as much as possible
@@ -105,41 +89,74 @@ set hlsearch           " highlight candidates in a search
 " third tab  - cycle through completion options
 set wildmode=longest,list,full
 
-set foldenable         " enable folding
-set foldlevelstart=10  " most folds open on start
-set foldnestmax=10     " nest only 10 layers of folds
-set foldmethod=indent  " fold only based on indent
+set ruler
+" terminal acceleration
+set ttyfast
+" 4 whitespaces for tabs visual presentation
+set tabstop=4
+" shift lines by 4 spaces
+set shiftwidth=4                        
+" set tabs for a shifttabs logic
+set smarttab                            
+" expand tabs into spaces
+set expandtab                           
+" indent when moving to the next line while writing code
+set autoindent 
+" shows line under the cursor's line                         
+set cursorline
+" shows matching part of bracket pairs (), [], {}                              
+set showmatch                               
+set novisualbell
+set noshowmode
+set showbreak=←
+" more intuitive window positioning
+set splitbelow
+set splitright
 
-let mapleader=","      " set mapleader to comma
 
+" utf-8 by default
+set enc=utf-8	                            
+" backspace removes all (indents, EOLs, start) What is start?
+set backspace=2
+" use system clipboard
+set clipboard=unnamed                       
+" enable usage of additional .vimrc files from working directory
+set exrc
+" prohibit .vimrc files to execute shell, create files, etc...                                    
+set secure
+
+"===============================================================================
+" Keybindings
+"===============================================================================
+" set mapleader to comma 
+let mapleader=","
 " reload vim config without restarting
 map <leader>s :source ~/.vimrc<CR>
 
-" space opens and closes folds
-nnoremap <space> za
+"===============================================================================
+" Updates
+"===============================================================================                                    
+nnoremap <Leader>pu :PlugUpdate<CR>
+nnoremap <Leader>pi :PlugInstall<CR>
 
-" Plugin management {{{
-" ------------------------------------------------------------------------------
-"
-nnoremap <Leader>pu :PluginUpdate<CR>
-nnoremap <Leader>pi :PluginInstall<CR>
+"===============================================================================
+" Git/Project Management
+"===============================================================================                                    
+" Git management with tpope's git-fugitive
+nnoremap <Leader>gc :Gcommit<CR>
+nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gr :Gread<CR>
+nnoremap <Leader>gw :Gwrite<CR>
+nnoremap <Leader>gp :Git push<CR>
 
-" }}}2
-" CtrlP {{{
-" ------------------------------------------------------------------------------
-"  Fuzzy searching in a project folder.
-
-map <leader>p :CtrlP()<CR>
-noremap <leader>b<space> :CtrlPBuffer<CR>
-let g:ctrlp_custom_ignore = '\v[\/]dist$'
-
-" }}}2
-" NERDTree and buffer shorcuts {{{
-" ------------------------------------------------------------------------------
-" Management of buffers and file tree.
-
-" show/hide NERDTree
-nmap <C-n> :NERDTreeToggle<CR>
+"===============================================================================
+" Tabs / Buffers settings
+"===============================================================================
+tab sball
+set switchbuf=useopen
+set laststatus=2
 
 " navigating between split buffers
 nnoremap <C-J> <C-W><C-J>
@@ -153,46 +170,28 @@ nmap <leader>n :bn<CR>
 " close buffer
 nmap <leader>q :bd<CR>
 
-" }}}2
-" Git {{{
-" ------------------------------------------------------------------------------
-" This uses tpope's git-fugitive. Not as great as magit in Emacs,
-" but good enough.
+nmap <F9> :bprev<CR>
+nmap <F10> :bnext<CR>
+nmap <silent> <leader>q :SyntasticCheck # <CR> :bp <BAR> bd #<CR>
 
-nnoremap <Leader>gc :Gcommit<CR>
-nnoremap <Leader>gd :Gdiff<CR>
-nnoremap <Leader>gb :Gblame<CR>
-nnoremap <Leader>gs :Gstatus<CR>
-nnoremap <Leader>gr :Gread<CR>
-nnoremap <Leader>gw :Gwrite<CR>
-nnoremap <Leader>gp :Git push<CR>
+"===============================================================================
+" Neomake Settings 
+"===============================================================================
+call neomake#configure#automake('w')
+let g:neomake_open_list = 2
 
-"}}}
-" User Interface {{{
-" ------------------------------------------------------------------------------
-" Settings about the interface and aesthetics of vim.
+"===============================================================================
+"" Deoplete  Settings 
+"===============================================================================
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
 
-set ruler                             " show cursor position
-set title                             " display file name in title bar
-set textwidth=80                      " set the wrap guide
-"set colorcolumn=+1                    " show the wrap guide
-set cursorline                        " highlight the current line
-set laststatus=2                      " set up status line
-set showmatch                         " highlight matching delimiter
-set showcmd                           " display incomplete commands
-set novisualbell                      " no blinking cursor
-set noshowmode
-
-set showbreak=←
-
-syntax enable
-syntax on
-
-" Toggle line numbers {{{ ------------------------------------------------------
+"===============================================================================
+" Fringe settings
+"===============================================================================
 " Toggle through different line number displays.
 " This includes static display of numbers as well as relative number display.
 " Relative number display is useful for navigating a file with vim commands.
-
 nnoremap <silent><Leader>l :call ToggleRelativeAbsoluteNumber()<CR>
 function! ToggleRelativeAbsoluteNumber()
   if !&number && !&relativenumber
@@ -210,241 +209,218 @@ function! ToggleRelativeAbsoluteNumber()
   endif
 endfunction
 
-" }}}2
-" Colour scheme {{{ ------------------------------------------------------------
+" constant git gutter; no resizing
+set signcolumn=yes                    
 
-set termguicolors
-set t_Co=256
-set background=dark
+"===============================================================================
+" Search settings
+"===============================================================================
+set incsearch	                            " incremental search
+set hlsearch	                            " highlight search results
 
-colorscheme tender
+"=============================================================================
+" AirLine settings
+"=============================================================================
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#formatter='unique_tail'
+let g:airline_powerline_fonts=1
 
-" Misc {{{
-" ------------------------------------------------------------------------------
-" Other settings that don't quite fall into the other categories.
+"=====================================================
+"" TagBar settings
+"=====================================================
+let g:tagbar_autofocus=0
+let g:tagbar_width=42
+autocmd BufEnter *.py :call tagbar#autoopen(0)
+autocmd BufWinLeave *.py :TagbarClose
 
-let g:rainbow_active=1                " use rainbow delimiters
-set signcolumn=yes                    " constant git gutter; no resizing
+"=====================================================
+"" NERDTree settings
+"=====================================================
+let NERDTreeIgnore=['\.pyc$', '\.pyo$', '__pycache__$']     " Ignore files in NERDTree
+let NERDTreeWinSize=40
+autocmd VimEnter * if !argc() | NERDTree | endif  " Load NERDTree only if vim is run without arguments
+nmap " :NERDTreeToggle<CR>
 
-" Editing {{{
-" ------------------------------------------------------------------------------
-set ignorecase     " ignore letter case when searching
-set smartcase      " if capitals, become case sensitive
-set autoindent     " on new lines, match indent of previous line
-set copyindent     " keep the indent level when copying
-set softtabstop=4  " how many columns tab uses in insert mode
-set expandtab      " tab in insert mode produces the set number of spaces
-set shiftwidth=4   " how many columns are indented with reindent operators
-set cindent        " smart indenting for c-like code
-
-" format text to stay within the line wrap
-"set formatoptions+=a
-
-" Commenting {{{
-" ------------------------------------------------------------------------------
-" Useful settings for commenting programmes with NERD commenter
-" <https://github.com/scrooloose/nerdcommenter>
-
-" add a space after delimiter
+"=====================================================
+"" NERDComment Settings 
+"=====================================================
+" Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 
-" enable trimming of trailing whitespace when uncommenting
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
 
-"  }}}2
-" Syntastic error checking {{{
-" ------------------------------------------------------------------------------
+"=====================================================
+"" DevIcon Settings
+"=====================================================
+" loading the plugin 
+let g:webdevicons_enable = 0
 
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list=1
-let g:syntastic_check_on_open=1
-let g:syntastic_check_on_wq=0
+" adding the flags to NERDTree 
+let g:webdevicons_enable_nerdtree = 1
 
-" Auto-completion {{{
-" ------------------------------------------------------------------------------
+" adding to vim-airline's tabline
+let g:webdevicons_enable_airline_tabline = 1
 
-" YouCompleteMe settings
-let g:ycm_python_binary_path = '/usr/bin/python3'
+" adding to vim-airline's statusline
+let g:webdevicons_enable_airline_statusline = 1
 
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+" turn on/off file node glyph decorations (not particularly useful)
+let g:WebDevIconsUnicodeDecorateFileNodes = 1
 
-" disable AutoComplPop
-let g:acp_enableAtStartup = 0
-" use neocomplete
-let g:neocomplete#enable_at_startup = 1
-" use smartcase
-let g:neocomplete#enable_smart_case = 1
-" set minimum syntax keyword length
-let g:neocomplete#sources#syntax#min_keyword_length = 3
+" use double-width(1) or single-width(0) glyphs 
+" only manipulates padding, has no effect on terminal or set(guifont) font
+let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
 
-" define dictionary
-let g:neocomplete#sources#dictionary#dictionaries = {
-\     'default' : '',
-\     'vimshell' : $HOME.'/.vimshell_hist',
-\     'scheme' : $HOME.'/.gosh_completions'
-\ }
+" whether or not to show the nerdtree brackets around flags 
+let g:webdevicons_conceal_nerdtree_brackets = 0
 
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+" the amount of space to use after the glyph character (default ' ')
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
 
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
+" Force extra padding in NERDTree so that the filetype icons line up vertically
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1 
 
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+" change the default character when no match found
+let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = 'ƛ'
 
-" AutoComplPop like behavior.
-let g:neocomplete#enable_auto_select = 1
+" set a byte character marker (BOM) utf-8 symbol when retrieving file encoding
+" disabled by default with no value
+let g:WebDevIconsUnicodeByteOrderMarkerDefaultSymbol = ''
 
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+" enable folder/directory glyph flag (disabled by default with 0)
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+" enable open and close folder/directory glyph flags (disabled by default with 0)
+let g:DevIconsEnableFoldersOpenClose = 1
 
-"}}}2
-" Snippets {{{
-" ------------------------------------------------------------------------------
-" Control how snippets operate within vim.
+" enable pattern matching glyphs on folder/directory (enabled by default with 1)
+let g:DevIconsEnableFolderPatternMatching = 1
 
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+" enable file extension pattern matching glyphs on folder/directory (disabled by default with 0)
+let g:DevIconsEnableFolderExtensionPatternMatching = 0
 
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
+"=====================================================
+"" SnipMate settings
+"=====================================================
+let g:snippets_dir='~/.vim/vim-snippets/snippets'
 
-" }}}2
-" remove trailing whitespace
-autocmd BufWritePre * :%s/\s\+$//e
-"}}}
-" Language settings {{{
-" ------------------------------------------------------------------------------
-"  Settings for specific languages.
+"=====================================================
+"" Rainbow Parentheses Autoload 
+"=====================================================
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
-" C/C++ {{{
-" ------------------------------------------------------------------------------
+"=====================================================
+"" Indent Guides Settings 
+"=====================================================
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
+"=====================================================
+"" Python settings
+"=====================================================
 
-au BufRead,BufNewFile *.c,*.h set expandtab
-au BufRead,BufNewFile *.c,*.h set tabstop=8
-au BufRead,BufNewFile *.c,*.h set shiftwidth=8
-au BufRead,BufNewFile *.c,*.h set autoindent
-au         BufNewFile *.c,*.h set fileformat=unix
-au BufRead,BufNewFile *.c,*.h let b:comment_leader = '/* '
+" python executables for different plugins
+let g:pymode_python='python'
 
-" clang autocomplete for C/C++
-let g:clang_library_path='/usr/lib/llvm-4.0/lib/'
-"let g:clang_library_path='/usr/lib64/libclang.so'
+" rope
+let g:pymode_rope=0
+let g:pymode_rope_completion=0
+let g:pymode_rope_complete_on_dot=0
+let g:pymode_rope_auto_project=0
+let g:pymode_rope_enable_autoimport=0
+let g:pymode_rope_autoimport_generate=0
+let g:pymode_rope_guess_project=0
 
-" }}}2
-" LaTeX {{{
-" ------------------------------------------------------------------------------
+" documentation
+let g:pymode_doc=0
+let g:pymode_doc_bind='K'
 
-let g:tex_flavor = "latex"
+" lints
+let g:pymode_lint=0
 
-" view for latex previewing
-let g:livepreview_previewer = 'evince'
+" virtualenv
+let g:pymode_virtualenv=1
 
- " } }}2
-"
-"R {{{
-" ------------------------------------------------------------------------------
-" make R interact within vim
-"
-" For this to work, open tmux, and then the R file within vim. Starting an R
-" session will open the REPL in a vertical split pane. Otherwise, the R session
-" will open in a separate terminal.
+" breakpoints
+let g:pymode_breakpoint=1
+let g:pymode_breakpoint_key='<leader>b'
 
-" start the R REPL in a vertical split
-let R_tmux_split = 1
-let vimrplugin_vsplit = 1
+" syntax highlight
+let g:pymode_syntax=1
+let g:pymode_syntax_slow_sync=1
+let g:pymode_syntax_all=1
+let g:pymode_syntax_print_as_function=g:pymode_syntax_all
+let g:pymode_syntax_highlight_async_await=g:pymode_syntax_all
+let g:pymode_syntax_highlight_equal_operator=g:pymode_syntax_all
+let g:pymode_syntax_highlight_stars_operator=g:pymode_syntax_all
+let g:pymode_syntax_highlight_self=g:pymode_syntax_all
+let g:pymode_syntax_indent_errors=g:pymode_syntax_all
+let g:pymode_syntax_string_formatting=g:pymode_syntax_all
+let g:pymode_syntax_space_errors=g:pymode_syntax_all
+let g:pymode_syntax_string_format=g:pymode_syntax_all
+let g:pymode_syntax_string_templates=g:pymode_syntax_all
+let g:pymode_syntax_doctests=g:pymode_syntax_all
+let g:pymode_syntax_builtin_objs=g:pymode_syntax_all
+let g:pymode_syntax_builtin_types=g:pymode_syntax_all
+let g:pymode_syntax_highlight_exceptions=g:pymode_syntax_all
+let g:pymode_syntax_docstrings=g:pymode_syntax_all
 
-let R_start_libs = "base,stats,graphics,grDevices,utils,methods"
+" highlight 'long' lines (>= 80 symbols) in python files
+augroup vimrc_autocmds
+    autocmd!
+    autocmd FileType python,rst,c,cpp highlight Excess ctermbg=DarkGrey guibg=Black
+    autocmd FileType python,rst,c,cpp match Excess /\%81v.*/
+    autocmd FileType python,rst,c,cpp set nowrap
+    autocmd FileType python,rst,c,cpp set colorcolumn=80
+augroup END
 
-" for knitr
-let vimplugin_pdfviewer = "evince"
-let R_pdfviewer = "evince"
+" code folding
+let g:pymode_folding=0
 
-" open the PDF upon compilation
-let R_openpdf = 1
+" pep8 indents
+let g:pymode_indent=1
 
-let vimrplugin_latexmk = 1
-autocmd BufRead,BufNewFile *.Rnw set ft=rnoweb
-autocmd BufRead,BufNewFile *.rnw set ft=rnoweb
+" code running
+let g:pymode_run=1
+let g:pymode_run_bind='<F5>'
 
-" highlight chunk header as R
-let rrst_syn_hl_chunk = 1
-let rmd_syn_hl_chunk = 1
+let g:ale_sign_column_always = 0
+let g:ale_emit_conflict_warnings = 0                                                                         
+let g:airline#extensions#ale#enabled = 1
+let g:pymode_rope_lookup_project = 0
+let g:airline#extensions#tabline#enabled = 1
 
-" the pandoc syntax concealment is confusing
-let pandoc#syntax#conceal#use = 0
+imap <F5> <Esc>:w<CR>:!clear;python %<CR>
 
-" }}}2
-" Python {{{
-" ------------------------------------------------------------------------------
+no <down> <Nop>
+no <left> <Nop>
+no <right> <Nop>
+no <up> <Nop>
 
-au BufNewFile,BufRead *.py set tabstop=4
-au BufNewFile,BufRead *.py set softtabstop=4
-au BufNewFile,BufRead *.py set shiftwidth=4
-au BufNewFile,BufRead *.py set expandtab
-au BufNewFile,BufRead *.py set autoindent
-au BufNewFile,BufRead *.py set fileformat=unix
+ino <down> <Nop>
+ino <left> <Nop>
+ino <right> <Nop>
+ino <up> <Nop>
 
-" further highlighting in Python programs
-let python_highlight_all=1
-
-" }}}2
-" Julia {{{
-" ------------------------------------------------------------------------------
-
-" }}}
-" Markdown {{{
-" ------------------------------------------------------------------------------
-
-" set the spell check in markdown files
-au BufRead *.md setlocal spell spelllang=en_gb
-au BufRead *.markdown setlocal spell spelllang=en_gb
-
-"}}}2
-" }}}
-
-" vim:foldmethod=marker:foldlevel=0
+vno <down> <Nop>
+vno <left> <Nop>
+vno <right> <Nop>
+vno <up> <Nop>
